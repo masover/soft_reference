@@ -6,15 +6,11 @@ class SoftReference
     Reference = Java::java.lang.ref.SoftReference
 
     def initialize obj
-      @ref = Reference.new obj
+      @ref = obj.nil? ? nil : Reference.new(obj)
     end
 
     def get
       @ref.get
-    end
-
-    def alive?
-      @ref.get.nil?
     end
 
   else
@@ -32,7 +28,7 @@ class SoftReference
     end
 
     def initialize obj
-      @ref = WeakRef.new Reference.new obj
+      @ref = obj.nil? ? Reference.new(nil) : WeakRef.new(Reference.new(obj))
     end
 
     def get
@@ -42,10 +38,5 @@ class SoftReference
         nil
       end
     end
-
-    def alive?
-      @ref.weakref_alive?
-    end
-
   end
 end
