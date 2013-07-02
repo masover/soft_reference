@@ -10,7 +10,7 @@ class SoftReference
     end
 
     def get
-      @ref.get
+      @ref.nil? ? nil : @ref.get
     end
 
   else
